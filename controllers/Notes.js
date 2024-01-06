@@ -115,13 +115,13 @@ exports.updateNote = async ( req, res ) => {
                 )
         }
 
-        await Notes.findByIdAndUpdate(noteId,{
+        const updatedData=await Notes.findByIdAndUpdate(noteId,{
             title:title,
             description:description
         });
         return res
             .status(200)
-            .json({success: true, message: "Note update successfully"})
+            .json({success: true, message: "Note update successfully", Data: updatedData})
     } catch (error) {
         res
             .status(500)
