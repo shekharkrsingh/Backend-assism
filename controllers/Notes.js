@@ -114,7 +114,7 @@ exports.updateNote = async (req, res) => {
         const updatedNote = await Notes.findByIdAndUpdate(noteId, {
             title: title,
             description: description
-        });
+        }, { new: true });
         return res
             .status(200)
             .json({success: true, message: "Note update successfully", data: updatedNote})
