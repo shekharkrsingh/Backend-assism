@@ -5,12 +5,12 @@ const notesSchema = new mongoose.Schema(
         title:{
             type:String,
             required:true,
-            maxLength:50,
+            maxLength:100,
         },
         description: {
             type:String,
             required:true,
-            maxLength:50,
+            maxLength:300,
         },
         user: {
             type:mongoose.Schema.Types.ObjectId,
