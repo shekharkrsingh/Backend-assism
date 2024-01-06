@@ -20,9 +20,7 @@ exports.createNote = async (req, res) => {
     } catch (error) {
         res
             .status(500)
-            .json(
-                {success: false, message: "Failed to create note", error: error.message}
-            )
+            .json({success: false, message: "Failed to create note", error: error.message})
     }
 }
 
@@ -81,18 +79,17 @@ exports.getNote = async (req, res) => {
     }
 }
 
-exports.updateNote = async ( req, res ) => {
+exports.updateNote = async (req, res) => {
     try {
         const userId = req.user.id;
         const {noteId, title, description} = req.body;
 
-        if( !title || !description ){
-            return res.status(501).json({
-                success:false,
-                message:"cannot update blank title or description "
-            })
+        if (!title || !description) {
+            return res
+                .status(501)
+                .json({success: false, message: "cannot update blank title or description "})
         }
-        
+
         if (!noteId) {
             return res
                 .status(401)
@@ -105,8 +102,7 @@ exports.updateNote = async ( req, res ) => {
                 .status(401)
                 .json({success: false, message: "Not any note available of this ID"})
         }
-        console.log(userId);
-        console.log(note.user._id)
+        // console.log(userId); console.log(note.user._id)
         if (note.user._id != userId) {
             return res
                 .status(401)
@@ -115,13 +111,13 @@ exports.updateNote = async ( req, res ) => {
                 )
         }
 
-        const updatedData=await Notes.findByIdAndUpdate(noteId,{
-            title:title,
-            description:description
+        const updatedNote = await Notes.findByIdAndUpdate(noteId, {
+            title: title,
+            description: description
         });
         return res
             .status(200)
-            .json({success: true, message: "Note update successfully", Data: updatedData})
+            .json({success: true, message: "Note update successfully", data: updatedNote})
     } catch (error) {
         res
             .status(500)
@@ -160,14 +156,10 @@ exports.deleteNote = async (req, res) => {
 
         return res
             .status(200)
-            .json({success: true, message:"Note deleted successfully"})
+            .json({success: true, message: "Note deleted successfully"})
     } catch (error) {
         res
             .status(500)
-            .json(
-                {success: false, message: "Failed to delete Note", error: error.message}
-            )
+            .json({success: false, message: "Failed to delete Note", error: error.message})
     }
 }
-
-
